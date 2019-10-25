@@ -1,6 +1,6 @@
 ---
 title: "General Social Survey"
-author: "Your Name"
+author: "Miguel Cullum"
 date: "Year 2019"
 output: 
   html_document:
@@ -38,10 +38,13 @@ levels(mydata4$VOTE12)[2] <- "no in 12"
 
 This data is from the 2018 General Social Survey. The first blocks of R-code has selected down a subset of the data to just 15 variables. It has further removed unwanted factor levels in much of the data. Examine that code to see what it is doing. Finally address this question.  Is opinion on the death penalty (CAPPUN) independent of gun ownership (OWNGUN)?
 
+$H_0$ There is not relationship between CAPPUN and OWNGUN.
 
+$H_1$ There is a relationship between CAPPUN and OWNGUN.
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+Our two variables of intrest is the option on the death penalty (Cappun) and gun ownership (Owngun), which are both factor variables. For this project we will be using a barchart for the graphical results and a xtab command for the numerical results.
 
 ##Results
 
@@ -49,27 +52,54 @@ This data is from the 2018 General Social Survey. The first blocks of R-code has
 
 ### Descriptive Results
 
+The barchart shows that people who are in favour of the death penalty are more likely to own a gun.  
+
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+barchartGC(~CAPPUN + OWNGUN,data=mydata4)
+barchartGC(~CAPPUN + OWNGUN,data=mydata4,type = "percent")
+```
+
+By the looks of the bar chart it seems to be in favour of guns that oppose them.  
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+table1 <- xtabs(~CAPPUN + OWNGUN, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
+
+48 percent of people who own guns are in favour of capital punishment while 71 percent of people who do not own guns are in favour of capital punishment.
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+Given that the null hypothesis is true 2% of the time, we reject the null. There is a relationship between the opinion on the Capital punishment and who owns a gun. From all the results we conclude that people gunowners are more likely to be in favour of Capital punishment. 
 
 # Introduction Question 2
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
-Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in the afterlife (POSTLIFE)
+Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in the afterlife (POSTLIFE).
+
+$H_0$:There is no relationship between BIGBANG and POSTLIFE.
+
+$H_1$:There is a relationship between BIGBANG and POSTLIFE.
 
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+Our two variables of intrest is the beleif of the afterlife (POSTLIFE) and the belief of the big bang theory (BIGBANG), which are both factor variables. For this project we will be using a barchart for the graphical results and a xtab command for the numerical results.
 
 ##Results
 
@@ -77,17 +107,38 @@ Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in th
 
 ### Descriptive Results
 
-#### Graphical Descriptive Results
+The barchart shows that people who do not believe in afterlife just as much believe in the Big Bang just as much as people who dont believe in afterlife.
 
+#### Graphical Descriptive Results
+```{r}
+barchartGC(~BIGBANG + POSTLIFE,data=mydata4)
+barchartGC(~BIGBANG + POSTLIFE,data=mydata4,type = "percent")
+```
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+The barchart shows that people who do not believe in afterlife just as much believe in the Big Bang just as much as people who dont believe in afterlife.  
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+table1 <- xtabs(~BIGBANG + POSTLIFE, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
 
+The numerical results suggests that there is no correlation between people who beieleve in the after life and people who beleive in Big bang due to lack of evidence.
+ 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+Given that the null hypothesis is true 8% of the tiome we fail to reject the null hypotheis. The results above show that there is no relationship between the beleif in afterlife and the beleif in the big bang.
 
 # Introduction Question 3
 
@@ -95,9 +146,15 @@ Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in th
 
 Finally determine if a persons opinion on death penalty (CAPPUN) is independent of their race (RACE).
 
+$H_0$:There is no relationship between CAPPUN and RACE
+
+$H_1$:There is a Relationship between CAPPUN and RACE
+
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+
+Our two variables of intrest is thier opinion on the death penalty (CAPPUN), is independent of their race (RACE), which are both factor variables. For this project we will be using a barchart for the graphical results and a xtab command for the numerical results.
 
 ##Results
 
@@ -105,20 +162,43 @@ Finally determine if a persons opinion on death penalty (CAPPUN) is independent 
 
 ### Descriptive Results
 
+The barchart shows that black people are more opposed to capital punishment.
+
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+barchartGC(~CAPPUN + RACE,data=mydata4)
+barchartGC(~CAPPUN + RACE,data=mydata4,type = "percent")
+```
+
+The barchart shows that black people are more opposed to capital punishment.
 
 #### Numerical Descriptive Results
 
+
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+table1 <- xtabs(~CAPPUN + RACE, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The Numerical results show that 8 percent of black people are in favour of capital punishment while 27 percent of black people oppose capital punishment.
 
 ### Inferential Results
-
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
 
+Given the null hypothesis is true less than 5% of the time we reject the null hypotheuis. The results show that there is correlation between a person opinion of the death penalty and their race. It seems that black people are more likely to oppose the death penalty than that of the other races.
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+In the results of question one, Given that the null hypothesis is true 2% of the time, we reject the null. There is a relationship between the opinion on the Capital punishment and who owns a gun. From all the results we conclude that people gunowners are more likely to be in favour of Capital punishment. Then in question 2, Given that the null hypothesis is true 8% of the tiome we fail to reject the null hypotheis. The results above show that there is no relationship between the beleif in afterlife and the beleif in the big bang. lastly in the results of question 3, Given the null hypothesis is true less than 5% of the time we reject the null hypotheuis. The results show that there is correlation between a person opinion of the death penalty and their race. It seems that black people are more likely to oppose the death penalty than that of the other races.
 
